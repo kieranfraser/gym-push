@@ -6,7 +6,7 @@ setup(name='gym-push',
         '': ['*.csv', '*.npy'],
       },      
       version='0.0.9',
-      install_requires=['gym', 'numpy', 'pandas', 'joblib'],  # And any other dependencies foo needs,
+      install_requires=['gym', 'numpy', 'pandas', 'joblib', 'eel'],  # And any other dependencies foo needs,
       author='Kieran Fraser',
       author_email='kfraser@tcd.ie',
 ) 

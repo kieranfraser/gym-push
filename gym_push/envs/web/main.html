@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <script type="text/javascript" src="/eel.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+
+    <title>Gym-push</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    
+</head>
+    <body class="body-background">
+        <!-- Image and text -->
+        <nav class="navbar navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">
+            <img src="img/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Gym-push
+          </a>
+            <!--Todo: populate with epoch -->
+          <a id="epochProgress" style="color: white;">13 / 399</a>
+        </nav>
+        
+        <div class="container-fluid main-container">
+            <div class="row top-row">
+                <div class="col-md-2 action"></div>
+                <div class="col-md-4">
+                    <!--Todo: populate with current values -->
+                    <div class="card text-center">
+                      <div class="card-header">
+                        <i class="em-svg em-bell" aria-role="presentation" aria-label="alert"></i> New Notification!
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title" id="currentAppPackage">App</h5>
+                        <p class="card-text" id="currentFeatures">With supporting text below as a natural lead-in to additional content.</p>
+                      </div>
+                      <div class="card-footer text-muted">
+                        <p id="currentContext">Morning + Monday + Contact <strong>is</strong> relevant to context</p>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-4 action">
+                    <div class="card text-white bg-info mb-3 score-card">
+                      <div class="card-body">
+                          <small id="currentCTR">Performance</small>
+                        <h3 id="currentPerformance" class="card-title">57%</h3>
+                      </div>
+                    </div>
+                    <div class="card text-white bg-info mb-3 score-card">
+                      <div class="card-body">
+                          <small id="currentCTR">Click Through Rate</small>
+                        <h3 id="currentPerformance" class="card-title">57%</h3>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-2 action"></div>
+            </div>
+            
+            <div class="row second-row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body bg-danger card-action-heading">
+                            <h6 style="margin-bottom: 0;">Dismissed Notifications</h6>
+                            <i class="em-svg em--1" aria-role="presentation" aria-label="alert"></i>
+                            <div class="progress">
+                                <div id="progressDismissed" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dismissedList" class="list-group">
+                        
+                        <!--Todo: remove this and create dynamically -->
+                      <li class="list-group-item bg-danger">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">WhatsApp</h5>
+                          <small>Monday, morn</small>
+                        </div>
+                        <p class="mb-1">features</p>
+                        <small>Groundtruth: Opened</small>
+                      </li>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body bg-success card-action-heading">
+                            <h6 style="margin-bottom: 0;">Opened Notifications</h6>
+                            <i class="em-svg em---1" aria-role="presentation" aria-label="alert"></i>
+                            <div class="progress" >
+                                <div id="progressOpened" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" >25%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="openedList" class="list-group">
+                        <!--Todo: remove this and create dynamically -->
+                      <li class="list-group-item bg-success">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">WhatsApp</h5>
+                          <small>Monday, morn</small>
+                        </div>
+                        <p class="mb-1">features</p>
+                        <small>Groundtruth: Opened</small>
+                      </li>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            
+        </div>
+    </body>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+</html>
