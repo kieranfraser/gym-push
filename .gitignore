@@ -1,0 +1,10 @@
+dist/
+build/
+**/__pycache__
+*.ipynb
+/gym_push.egg-info
+/example_models
+/.ipynb_checkpoints
+info.txt
+!ExampleUsage.ipynb
+!Documentation.ipynb
