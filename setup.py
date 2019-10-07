@@ -9,5 +9,5 @@ setup(name='gym-push',
       install_requires=['gym', 'numpy', 'pandas', 'joblib', 'eel', 'json-tricks'], 
       author='Kieran Fraser',
       author_email='kfraser@tcd.ie',
-      download_url='https://github.com/kieranfraser/gym-push/dist/gym-push-0.0.10.tar.gz'
+      download_url='https://github.com/kieranfraser/gym-push/raw/master/dist/gym-push-0.0.10.tar.gz'
 ) 
