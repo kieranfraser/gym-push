@@ -10,7 +10,117 @@
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    
+    <script type="text/javascript">
+        eel.expose(initial_state);
+        eel.expose(render);
+        
+        var num_epochs = 0
+        
+        function initial_state(jsonObj) {
+            jsonObj = JSON.parse(jsonObj)
+            var currentNotification = jsonObj.notification
+            var currentContext = jsonObj.context
+            var size = jsonObj.size
+            
+            num_epochs = parseInt(size)
+            $('#currentEpoch').html('1 / '+num_epochs)
+            $('#currentAppPackage').html(currentNotification.appPackage)
+            $('#currentFeatures').html('Category: '+currentNotification.category+'; '+
+                                      'Priority: '+currentNotification.priority+'; '+
+                                      'Number of times updated: '+currentNotification.numberUpdates+'; ')
+            $('#currentContext').html(currentContext.postedDayOfWeek+', '+currentContext.postedTimeOfDay+' + '+
+                                     'Contact <strong>'+(currentContext.contactSignificantContext?'is':'is not')+'</strong> relevant to context')
+        }
+        
+        function render(jsonObj){
+            jsonObj = JSON.parse(jsonObj)
+            console.log(jsonObj)
+            
+            var currentNotification = jsonObj.notification
+            var currentContext = jsonObj.context
+            var epoch = jsonObj.epoch+1
+            var openedNotifications = jsonObj.openedNotifications
+            var dismissedNotifications = jsonObj.dismissedNotifications
+            var openedContexts = jsonObj.openedContexts
+            var dismissedContexts = jsonObj.dismissedContexts
+            var correctlyOpened = jsonObj.correctlyOpened
+            var correctlyDismissed = jsonObj.correctlyDismissed
+            
+            $('#currentEpoch').html(epoch+' / '+num_epochs)
+            $('#currentAppPackage').html(currentNotification.appPackage)
+            $('#currentFeatures').html('Category: '+currentNotification.category+'; '+
+                                      'Priority: '+currentNotification.priority+'; '+
+                                      'Number of times updated: '+currentNotification.numberUpdates+'; ')
+            $('#currentContext').html(currentContext.postedDayOfWeek+', '+currentContext.postedTimeOfDay+' + '+
+                                     'Contact <strong>'+(currentContext.contactSignificantContext?'is':'is not')+'</strong> relevant to context')
+            
+            dismissedTemplate = '<li class="list-group-item bg-danger">'+
+                                    '<div class="d-flex w-100 justify-content-between">'+
+                                      '<h5 class="mb-1">{{:appPackage}}</h5>'+
+                                      '<small>{{:postedDayOfWeek}}, {{:postedTimeOfDay}}</small>'+
+                                    '</div>'+
+                                    '<p class="mb-1">{{:category}}, {{:priority}}, {{:numberUpdates}}</p>'+
+                                    '<small>Groundtruth: dismissed</small>'+
+                                  '</li>'
+            $.templates('dismissedTemplate', dismissedTemplate)
+            $('#dismissedList').empty()
+            var dismissed = []
+            for(i = 0; i<dismissedNotifications.length; i++){
+                dismissed.push({...dismissedNotifications[i], ...dismissedContexts[i] })
+            }
+            dismissed.reverse()
+            var html = $.templates.dismissedTemplate(dismissed)
+            $('#dismissedList').append(html)
+            
+            /* --------------Opened------------------ */
+            
+            openedTemplate = '<li class="list-group-item bg-success">'+
+                                    '<div class="d-flex w-100 justify-content-between">'+
+                                      '<h5 class="mb-1">{{:appPackage}}</h5>'+
+                                      '<small>{{:postedDayOfWeek}}, {{:postedTimeOfDay}}</small>'+
+                                    '</div>'+
+                                    '<p class="mb-1">{{:category}}, {{:priority}}, {{:numberUpdates}}</p>'+
+                                    '<small>Groundtruth: dismissed</small>'+
+                                  '</li>'
+            $.templates('openedTemplate', openedTemplate)
+            $('#openedList').empty()
+            var opened = []
+            for(i = 0; i<openedNotifications.length; i++){
+                opened.push({...openedNotifications[i], ...openedContexts[i] })
+            }
+            opened.reverse()
+            var html = $.templates.openedTemplate(opened)
+            $('#openedList').append(html)
+            
+            /* -------------- Stats --------------*/
+            var openedMetric = ((correctlyOpened / opened.length)*100).toFixed(2)
+            var dismissedMetric = ((correctlyDismissed / dismissed.length)*100).toFixed(2)
+            var overallMetric = (((parseFloat(openedMetric)+parseFloat(dismissedMetric))/200)*100).toFixed(2)
+            var ctrMetric = ((opened.length / (opened.length+dismissed.length))*100).toFixed(2)
+            $('#currentCTR').html(ctrMetric+'%')
+            if(!isNaN(overallMetric))
+                $('#currentPerformance').html(overallMetric+'%')
+            if(!isNaN(dismissedMetric) && dismissed.length>0 && correctlyDismissed>0)
+                $('#progressDismissed').attr('aria-valuenow', dismissedMetric+'');
+                $('#progressDismissed').html(dismissedMetric+'%');
+                if(parseFloat(dismissedMetric)<5)
+                    $('#progressDismissed').attr('style', 'width: 5%;');
+                else
+                    $('#progressDismissed').attr('style', 'width: '+dismissedMetric+'%;');
+            if(!isNaN(openedMetric) && opened.length>0 && correctlyOpened>0)
+                $('#progressOpened').attr('aria-valuenow', openedMetric+'');
+                $('#progressOpened').html(openedMetric+'%');
+                if(parseFloat(openedMetric)<5)
+                    $('#progressOpened').attr('style', 'width: 5%;');
+                else
+                    $('#progressOpened').attr('style', 'width: '+openedMetric+'%;');
+        }
+        
+        
+        
+    </script>
     
 </head>
     <body class="body-background">
@@ -21,7 +131,7 @@
             Gym-push
           </a>
             <!--Todo: populate with epoch -->
-          <a id="epochProgress" style="color: white;">13 / 399</a>
+          <a id="currentEpoch" style="color: white;"></a>
         </nav>
         
         <div class="container-fluid main-container">
@@ -34,25 +144,25 @@
                         <i class="em-svg em-bell" aria-role="presentation" aria-label="alert"></i> New Notification!
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title" id="currentAppPackage">App</h5>
-                        <p class="card-text" id="currentFeatures">With supporting text below as a natural lead-in to additional content.</p>
+                        <h5 class="card-title" id="currentAppPackage"></h5>
+                        <p class="card-text" id="currentFeatures"></p>
                       </div>
                       <div class="card-footer text-muted">
-                        <p id="currentContext">Morning + Monday + Contact <strong>is</strong> relevant to context</p>
+                        <p id="currentContext"></p>
                       </div>
                     </div>
                 </div>
                 <div class="col-md-4 action">
                     <div class="card text-white bg-info mb-3 score-card">
                       <div class="card-body">
-                          <small id="currentCTR">Performance</small>
-                        <h3 id="currentPerformance" class="card-title">57%</h3>
+                          <small>Performance</small>
+                        <h3 id="currentPerformance" class="card-title"></h3>
                       </div>
                     </div>
                     <div class="card text-white bg-info mb-3 score-card">
                       <div class="card-body">
-                          <small id="currentCTR">Click Through Rate</small>
-                        <h3 id="currentPerformance" class="card-title">57%</h3>
+                          <small>Click Through Rate</small>
+                        <h3 id="currentCTR" class="card-title"></h3>
                       </div>
                     </div>
                 </div>
@@ -63,47 +173,31 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
                     <div class="card">
-                        <div class="card-body bg-danger card-action-heading">
+                        <div class="card-body bg-info card-action-heading">
                             <h6 style="margin-bottom: 0;">Dismissed Notifications</h6>
                             <i class="em-svg em--1" aria-role="presentation" aria-label="alert"></i>
                             <div class="progress">
-                                <div id="progressDismissed" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                <div id="progressDismissed" class="progress-bar" role="progressbar" style="width: 5%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                             </div>
                         </div>
                     </div>
-                    <div id="dismissedList" class="list-group">
+                    <div id="dismissedList" class="list-group notification-list">
                         
                         <!--Todo: remove this and create dynamically -->
-                      <li class="list-group-item bg-danger">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">WhatsApp</h5>
-                          <small>Monday, morn</small>
-                        </div>
-                        <p class="mb-1">features</p>
-                        <small>Groundtruth: Opened</small>
-                      </li>
+                      
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <div class="card-body bg-success card-action-heading">
+                        <div class="card-body bg-info card-action-heading">
                             <h6 style="margin-bottom: 0;">Opened Notifications</h6>
                             <i class="em-svg em---1" aria-role="presentation" aria-label="alert"></i>
                             <div class="progress" >
-                                <div id="progressOpened" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" >25%</div>
+                                <div id="progressOpened" class="progress-bar" role="progressbar" style="width: 5%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >0%</div>
                             </div>
                         </div>
                     </div>
-                    <div id="openedList" class="list-group">
-                        <!--Todo: remove this and create dynamically -->
-                      <li class="list-group-item bg-success">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">WhatsApp</h5>
-                          <small>Monday, morn</small>
-                        </div>
-                        <p class="mb-1">features</p>
-                        <small>Groundtruth: Opened</small>
-                      </li>
+                    <div id="openedList" class="list-group notification-list">
                     </div>
                 </div>
                 <div class="col-md-3"></div>
@@ -115,5 +209,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.4/jsrender.min.js"></script>
     
 </html>

@@ -7,5 +7,5 @@ build/
 /example_models
 /.ipynb_checkpoints
 info.txt
-!ExampleUsage.ipynb
+!Example_basic-v0.ipynb
 !Documentation.ipynb
