@@ -1,6 +1,5 @@
 dist/
 build/
-**/data
 **/__pycache__
 *.ipynb
 /gym_push.egg-info
@@ -8,4 +7,3 @@ build/
 /.ipynb_checkpoints
 info.txt
 !Example_basic-v0.ipynb
-!Documentation.ipynb
