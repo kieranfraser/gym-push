@@ -5,8 +5,9 @@ setup(name='gym-push',
       package_data={
         '': ['*.csv', '*.npy'],
       },      
-      version='0.0.9',
-      install_requires=['gym', 'numpy', 'pandas', 'joblib', 'eel', 'json-tricks'],  # And any other dependencies foo needs,
+      version='0.0.10',
+      install_requires=['gym', 'numpy', 'pandas', 'joblib', 'eel', 'json-tricks'], 
       author='Kieran Fraser',
       author_email='kfraser@tcd.ie',
+      download_url='https://github.com/kieranfraser/gym-push/dist/gym-push-0.0.10.tar.gz'
 ) 
