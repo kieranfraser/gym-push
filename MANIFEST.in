@@ -1,0 +1,2 @@
+include gym_push/envs/data/*.csv
+recursive-include gym_push/envs/web *
