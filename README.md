@@ -22,7 +22,7 @@ Install via pip:
 ```sh
 > pip install gym-push
 ```
-
+> Only tested using versions python==3.6
 ## Running basic environment
 The *basic-v0* environment simulates notifications arriving to a user in different contexts. The features of the context and notification are simplified. 
 

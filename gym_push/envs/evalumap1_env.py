@@ -32,6 +32,11 @@ class EvalUMAP1(gym.Env):
     def __init__(self):
         print('EvalUMAP1-v0 environment')
         self.dir_path = os.path.dirname(os.path.realpath(__file__))
+        try:
+            os.makedirs(self.dir_path+'/results/train/')
+            os.makedirs(self.dir_path+'/results/test/')
+        except FileExistsError:
+            pass
         
         # ------------ load data ------------------ #
         # ------------ train as default ------------------ #
@@ -208,6 +213,8 @@ class EvalUMAP1(gym.Env):
         ctr_results.append({'metric': 'diversity_score', 'score': diversity_score})
         ctr_results.append({'metric': 'enticement_score', 'score': enticement_score})
         joblib.dump(ctr_results, self.dir_path+'/results/'+data_set_type+'/results.joblib')
+        
+        print('Results saved here: ', self.dir_path+'/results/'+data_set_type+'/')
         
     '''
         Convert enticement string to tiered value
