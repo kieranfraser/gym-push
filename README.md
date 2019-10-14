@@ -70,14 +70,14 @@ In contrast to Task 1, this user model will need to query the gym-push environme
 The goal is to develop a model which adapts and learns how to generate personalized notifications in real-time, without prior history of the user (cold-start problem). Evaluation is continuous for this task and a summary of results is issued once all context features have been processed.
 
 ## Data explained
-The data can be broken down into three subsets: notifications, contexts and engagements.
+The data can be broken down into three subsets: notifications, contexts and engagements. When training, the request_data() method will return all three subsets of data in three separate DataFrames. When testing, the request_data(test=True) method will return one DataFrame containing just context data.
 
-Notifications contain the following features:
+#### Notifications contain the following features:
 
 |Feature|Data type|Explanation|
 |-------------|-----------------------------|-------------------|
 |appPackage|object|The app that sent the notification|
-|category|object|The category of the notification, possible values include 'msg' and 'email'|
+|category|object|The category of the notification, possible values include: 'msg' and 'email'|
 |ledARGB|object|The color the LED flashes when a notification is delivered|
 |priority|object|The priority level of the notification set by the sender|
 |vibrate|object|The vibration pattern which alerts the user of the notification on arrival|
@@ -86,8 +86,45 @@ Notifications contain the following features:
 |enticement|object|The enticement value the notification text content was inferred to have|
 |sentiment|object|The sentiment value the notification text content was inferred to have|
 
+#### Contexts contain the following features:
+
+|Feature|Data type|Explanation|
+|-------------|-----------------------------|-------------------|
+|timeOfDay|object|The time of day split into buckets, possible values: 'early-morning', 'morning', 'afternoon', 'evening', 'night'|
+|dayOfWeek|object|The day of week|
+|unlockCount_prev2|int64|The number of times the user has unlocked their device in the preceding two hours|
+|uniqueAppsLaunched_prev2|int64|The number of unique apps the user has opened in the preceding two hours|
+|dayOfMonth|int64|The day of the month|
+
+#### Engagements contain the following features:
+
+|Feature|Data type|Explanation|
+|-------------|-----------------------------|-------------------|
+|action|int64|The action taken by the user on a notification in a given context, possible values: 1 (opened), 0 (dismissed)|
+
 ## Running task 1
-To be added.
+A jupyter notebook named *Example_evalumap1-v0* is provided in the docs folder demonstrating how to set up the relvant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
+
+```sh
+import gym
+import pandas as pd
+
+env = gym.make('gym_push:evalumap1-v0')
+
+training_contexts, training_notifications, training_engagements = env.request_data()
+
+random_notifications = [env.action_space.sample() for context in training_contexts.values]
+random_notifications = pd.DataFrame(random_notifications)
+
+env.evaluate(random_notifications)
+```
+When run, this should produce the following results:
+```sh
+[{'model': 'Adaboost', 'ctr_score': 31.590250187909376}, {'model': 'Decision Tree', 'ctr_score': 33.35122946418984}, {'model': 'Naive Bayes', 'ctr_score': 21.754536669172126}, {'metric': 'diversity_score', 'score': 100.0}, {'metric': 'enticement_score', 'score': 50.36508106947279}]
+```
+
+<img src="docs/img/ctr_example.png" width="33.3%"/> <img src="docs/img/enticement_example.png" width="33.3%"/> <img src="docs/img/diversity_example.png" width="33.3%"/> 
+
 
 ## Running task 2
 To be added.
