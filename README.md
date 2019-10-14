@@ -1,6 +1,5 @@
 # Gym-push
 ### A custom OpenAI Gym environment for intelligent push-notifications
-> Gym-push environments shall be used for comparative evalutation in the [EvalUMAP 2020](http://evalumap.adaptcentre.ie/) challenge.
 
 #### Content:
 1. [Quick start](#quick-start)
@@ -13,6 +12,7 @@
 8. [Submitting results](#submitting-results)
 9. [Contact details](#contact-details)
 
+> Gym-push environments shall be used for comparative evalutation in the [EvalUMAP 2020](http://evalumap.adaptcentre.ie/) challenge.
 
 ## 1. Quick start
 Install via pip:
