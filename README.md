@@ -1,4 +1,5 @@
-# Gym-push: A custom OpenAI Gym environment for intelligent push-notifications
+# Gym-push
+### A custom OpenAI Gym environment for intelligent push-notifications
 > Gym-push environments shall be used for comparative evalutation in the [EvalUMAP 2020](http://evalumap.adaptcentre.ie/) challenge.
 
 #### Content:
