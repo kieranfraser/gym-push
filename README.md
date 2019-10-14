@@ -47,7 +47,7 @@ Specifically, assuming individuals’ interactions with their mobile phone have 
 ## Task Description
 #### Task 1
 <p align="center">
-  <img width="460" height="300" src="docs/img/task_1_diagram.jpg">
+  <img width="1" height="300" src="docs/img/task_1_diagram.jpg">
 </p>
 
 The diagram above illustrates the operation flow for Task 1. 
@@ -59,7 +59,7 @@ Once the model is built, it can be evaluated, again using gym-push. This is achi
 
 #### Task 2
 <p align="center">
-  <img width="460" height="300" src="docs/img/task_2_diagram.jpg">
+  <img width="100%" height="100%" src="docs/img/task_2_diagram.jpg">
 </p>
 
 The diagram above illustrates the differing operation flow for Task 2. Participants are asked to create a user model based on the same notification, context and engagement features - but without historical notification data to train with (although, they can query the environment for sample data with which to create their model). 
