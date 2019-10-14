@@ -1,4 +1,4 @@
-# Gym-push: Custom OpenAI Gym Environment for Intelligent Push-notifications
+# Gym-push:<br>A Custom OpenAI Gym Environment for Intelligent Push-notifications
 <p align="center">
   <img width="80%" src="docs/img/gym_push.gif">
 </p>
@@ -14,7 +14,6 @@
 8. [Submitting results](#Submitting-results)
 9. [Contact details](#Contact-details)
 
-> Gym-push environments shall be used for comparative evalutation in the [EvalUMAP 2020](http://evalumap.adaptcentre.ie/) challenge.
 
 ## Quick start
 Install via pip:
@@ -44,7 +43,7 @@ print('Total Reward: ', total_reward)
 ## EvalUMAP Challenge 2019
 The use-case for the proposed challenge is personalized mobile phone notification generation. Previous work in this space has explored intercepting incoming mobile notifications, mediating their delivery such that irrelevant or unnecessary notifications do not reach the end-user and generating synthetic notification datasets from real world usage data. The next step toward an improved notification experience is to generate personalised notifications in real-time, removing the need for interception and delivery mediation. 
 
-Specifically, assuming individuals’ interactions with their mobile phone have been logged, the challenge is to create an approach to generate personalized notifications on individuals’ mobile phones, whereby such personalization would consist of deciding what events (emails, alerts, reminders etc.) to show to the individual and when to show them. Given the number of steps associated with such personalization, the task proposed in this paper will focus on the first step in this process, that of user model generation using the logged mobile phone interactions. For this task a dataset consisting of several individuals’ mobile phone interactions is provided, described in [Data explained](#Data-explained).
+Specifically, assuming individuals’ interactions with their mobile phone have been logged, the challenge is to create an approach to generate personalized notifications on individuals’ mobile phones, whereby such personalization would consist of deciding what events (emails, alerts, reminders etc.) to show to the individual and when to show them. Given the number of steps associated with such personalization, the task proposed in this paper will focus on the first step in this process, that of user model generation using the logged mobile phone interactions. For this task a dataset consisting of several individuals’ mobile phone interactions is provided, described [here](#Data-explained).
 
 ## Task Description
 #### Task 1
@@ -71,7 +70,20 @@ In contrast to Task 1, this user model will need to query the gym-push environme
 The goal is to develop a model which adapts and learns how to generate personalized notifications in real-time, without prior history of the user (cold-start problem). Evaluation is continuous for this task and a summary of results is issued once all context features have been processed.
 
 ## Data explained
-To be added.
+The data can be broken down into three subsets: notifications, contexts and engagements.
+
+Notifications contain the following features:
+|Feature|Data type|Explanation|
+|-------------|-----------------------------|-------------------|
+|appPackage|object|The app that sent the notification|
+|category|object|The category of the notification, possible values include 'msg' and 'email'|
+|ledARGB|object|The color the LED flashes when a notification is delivered|
+|priority|object|The priority level of the notification set by the sender|
+|vibrate|object|The vibration pattern which alerts the user of the notification on arrival|
+|visibility|object|The visibility level of the notification, possible values include: 'secret', 'private' and 'public'|
+|subject|object|The subject the notification text content was inferred to be|
+|enticement|object|The enticement value the notification text content was inferred to have|
+|sentiment|object|The sentiment value the notification text content was inferred to have|
 
 ## Running task 1
 To be added.
