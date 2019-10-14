@@ -122,8 +122,9 @@ When run, this should produce the following results:
 ```sh
 [{'model': 'Adaboost', 'ctr_score': 31.590250187909376}, {'model': 'Decision Tree', 'ctr_score': 33.35122946418984}, {'model': 'Naive Bayes', 'ctr_score': 21.754536669172126}, {'metric': 'diversity_score', 'score': 100.0}, {'metric': 'enticement_score', 'score': 50.36508106947279}]
 ```
-
-<img src="docs/img/ctr_example.png" width="33.3%"/> <img src="docs/img/enticement_example.png" width="33.3%"/> <img src="docs/img/diversity_example.png" width="33.3%"/> 
+<p align="center">
+    <img src="docs/img/ctr_example.png" width="30%"/> <img src="docs/img/enticement_example.png" width="30%"/> <img src="docs/img/diversity_example.png" width="30%"/> 
+</p>
 
 
 ## Running task 2
