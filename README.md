@@ -22,7 +22,7 @@ Install via pip:
 ```sh
 > pip install gym-push
 ```
-> Only tested using versions python==3.6
+> Only tested using versions: pip==19.2.3 python==3.6
 ## Running basic environment
 The *basic-v0* environment simulates notifications arriving to a user in different contexts. The features of the context and notification are simplified. 
 
@@ -109,7 +109,7 @@ The data can be broken down into three subsets: notifications, contexts and enga
 |action|int64|The action taken by the user on a notification in a given context, possible values: 1 (opened), 0 (dismissed)|
 
 ## Running task 1
-A jupyter notebook named *Example_evalumap1-v0* is provided in the docs folder demonstrating how to set up the relvant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
+A jupyter notebook named *Example_evalumap1-v0* is provided in the docs folder demonstrating how to set up the relevant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
 
 ```sh
 import gym
