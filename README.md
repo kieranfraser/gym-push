@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="50%" height="50%" src="docs/img/gym_push.gif">
+  <img width="100%" src="docs/img/gym_push.gif">
 </p>
 # Gym-push
 ### A custom OpenAI Gym environment for intelligent push-notifications
