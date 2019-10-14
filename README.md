@@ -46,22 +46,27 @@ Specifically, assuming individuals’ interactions with their mobile phone have 
 
 ## Task Description
 #### Task 1
-The diagram below illustrates the operation flow for Task 1. 
+<p align="center">
+  <img width="460" height="300" src="docs/img/task_1_diagram.jpg">
+</p>
+
+The diagram above illustrates the operation flow for Task 1. 
 
 Participants query *gym-push* for 3 months of historical data. Using this data, the participants should create a user model which takes a context (e.g. Time: 'morning', Place: 'airport', etc.) as input and outputs a personalized notification (e.g. App: 'news', Subject: 'weather', etc.) for the given context. Gym-push can be used for training purposes by returning performance metrics for notifications generated using the training contexts.
 
 Once the model is built, it can be evaluated, again using gym-push. This is achieved by requesting *test* data, 3 months of contextual evaluation data, from gym-push. Resulting notifications generated should then be returned to the environment where evaluation metrics are calculated using test assets.
 
-![Task 1 operation diagram](docs/img/task_1_diagram.jpg)
 
 #### Task 2
-The diagram below illustrates the differing operation flow for Task 2. Participants are asked to create a user model based on the same notification, context and engagement features - but without historical notification data to train with (although, they can query the environment for sample data with which to create their model). 
+<p align="center">
+  <img width="460" height="300" src="docs/img/task_2_diagram.jpg">
+</p>
+
+The diagram above illustrates the differing operation flow for Task 2. Participants are asked to create a user model based on the same notification, context and engagement features - but without historical notification data to train with (although, they can query the environment for sample data with which to create their model). 
 
 In contrast to Task 1, this user model will need to query the gym-push environment at each step to receive a current context feature and a previous user notification-engagement feature. As the environment steps through each context item and as engagement history becomes available, the user model can exploit this information to improve the generation of personalized notifications.
 
 The goal is to develop a model which adapts and learns how to generate personalized notifications in real-time, without prior history of the user (cold-start problem). Evaluation is continuous for this task and a summary of results is issued once all context features have been processed.
-
-![Task 2 operation diagram](docs/img/task_2_diagram.jpg)
 
 ## Data explained
 To be added.
