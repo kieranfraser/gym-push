@@ -58,6 +58,7 @@ To be added.
 
 ## 9. Contact details
 The following is a list of people who are available to answer queries:
+
 |Name|Email|Regarding|
 |-------------|-----------------------------|-------------------|
 |Kieran Fraser|kieran.fraser@adaptcentre.ie | Gym-push          |
