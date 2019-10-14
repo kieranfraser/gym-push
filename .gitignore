@@ -4,6 +4,7 @@ build/
 *.ipynb
 /gym_push.egg-info
 /example_models
-/.ipynb_checkpoints
+**/.ipynb_checkpoints
 info.txt
-!Example_basic-v0.ipynb
+!docs/Example_basic-v0.ipynb
+!docs/Example_evalumap1-v0.ipynb
