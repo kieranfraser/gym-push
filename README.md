@@ -43,7 +43,13 @@ print('Total Reward: ', total_reward)
 To be added.
 
 ## Task Description
-To be added.
+#### Task 1
+
+![Task 1 operation diagram](docs/img/task_1_diagram.jpg)
+
+#### Task 2
+
+![Task 2 operation diagram](docs/img/task_2_diagram.jpg)
 
 ## Data explained
 To be added.
