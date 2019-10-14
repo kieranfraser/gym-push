@@ -73,6 +73,7 @@ The goal is to develop a model which adapts and learns how to generate personali
 The data can be broken down into three subsets: notifications, contexts and engagements.
 
 Notifications contain the following features:
+
 |Feature|Data type|Explanation|
 |-------------|-----------------------------|-------------------|
 |appPackage|object|The app that sent the notification|
