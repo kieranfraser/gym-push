@@ -1,8 +1,7 @@
+# Gym-push
 <p align="center">
   <img width="80%" src="docs/img/gym_push.gif">
 </p>
-
-# Gym-push
 ### A custom OpenAI Gym environment for intelligent push-notifications
 
 #### Content:
