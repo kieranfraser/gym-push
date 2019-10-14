@@ -1,8 +1,8 @@
-# _Gym-push_
-## A Custom OpenAI Gym Environment for Intelligent Push-notifications
+# **Gym-push**
 <p align="center">
   <img width="80%" src="docs/img/gym_push.gif">
 </p>
+## A Custom OpenAI Gym Environment for Intelligent Push-notifications
 
 #### Content:
 1. [Quick start](#quick-start)
@@ -119,7 +119,7 @@ random_notifications = pd.DataFrame(random_notifications)
 
 env.evaluate(random_notifications)
 ```
-When run, this should produce the following results:
+When run, results should approximate:
 ```sh
 [{'model': 'Adaboost', 'ctr_score': 31.590250187909376}, {'model': 'Decision Tree', 'ctr_score': 33.35122946418984}, {'model': 'Naive Bayes', 'ctr_score': 21.754536669172126}, {'metric': 'diversity_score', 'score': 100.0}, {'metric': 'enticement_score', 'score': 50.36508106947279}]
 ```
