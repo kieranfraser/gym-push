@@ -41,6 +41,10 @@ while not finished:
 	env.render()
 print('Total Reward: ', total_reward)
 ```
+The output of executing above code:
+<p align="center">
+  <img width="50%" height="50%" src="docs/img/task_1_diagram.jpg">
+</p>
 
 ## EvalUMAP Challenge 2019
 The use-case for the proposed challenge is personalized mobile phone notification generation. Previous work in this space has explored intercepting incoming mobile notifications, mediating their delivery such that irrelevant or unnecessary notifications do not reach the end-user and generating synthetic notification datasets from real world usage data. The next step toward an improved notification experience is to generate personalised notifications in real-time, removing the need for interception and delivery mediation. 
@@ -50,7 +54,7 @@ Specifically, assuming individuals’ interactions with their mobile phone have 
 ## Task Description
 #### Task 1
 <p align="center">
-  <img width="50%" height="50%" src="docs/img/task_1_diagram.jpg">
+  <img width="50%" height="50%" src="docs/img/basic-v0.png">
 </p>
 
 The diagram above illustrates the operation flow for Task 1. 
