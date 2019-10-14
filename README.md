@@ -43,7 +43,7 @@ print('Total Reward: ', total_reward)
 ```
 The output of executing above code:
 <p align="center">
-  <img width="50%" height="50%" src="docs/img/task_1_diagram.jpg">
+  <img width="50%" height="50%" src="docs/img/basic-v0.png">
 </p>
 
 ## EvalUMAP Challenge 2019
@@ -54,7 +54,7 @@ Specifically, assuming individuals’ interactions with their mobile phone have 
 ## Task Description
 #### Task 1
 <p align="center">
-  <img width="50%" height="50%" src="docs/img/basic-v0.png">
+  <img width="50%" height="50%" src="docs/img/task_1_diagram.jpg">
 </p>
 
 The diagram above illustrates the operation flow for Task 1. 
