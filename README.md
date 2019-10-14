@@ -2,6 +2,7 @@
 <p align="center">
   <img width="80%" src="docs/img/gym_push.gif">
 </p>
+
 ## A Custom OpenAI Gym Environment for Intelligent Push-notifications
 
 #### Content:
