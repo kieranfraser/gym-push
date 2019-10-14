@@ -50,16 +50,12 @@ class EvalUMAP1(gym.Env):
         self.action_space = DataSpace(self.notifications)
         self.observation_space = DataSpace(self.contexts)
         
-        # Will always be based on train data, as test is unseen
+        # will always be based on train data, as test is unseen
         self.max_diversity = self.data[self.notif_cat].nunique().sum()
         
         # ------------- Create the engagements using the classifier ------- #
         self.engagements = self.predictEngagements(self.notifications, self.contexts)
         self.engagements = self.predictEngagements(self.notifications, self.contexts)
-        
-        # These are now different  - the action space is made up of combinations of possible Notifications
-        # the observation space is made up of the possible contexts
-        # best use label encoders
         
         self.epoch = 0
         self.openedNotifications = []
@@ -79,8 +75,15 @@ class EvalUMAP1(gym.Env):
                        # 'Nearest Neighbors',
                        'Decision Tree',
                        'Naive Bayes']
-        plt.ioff() # turn off interactive mode, so will only show on call
         
+        # esures plots are only shown when called and open
+        plt.ioff() 
+    
+    '''
+        Evaluates the action at the epoch. Steps through the contexts by incrementing the epoch. 
+        Returns the next context observed, the reward from the action in the previous context,
+        whether or not the environment is finished stepping through observations and an info object.
+    '''
     def step(self, action):
         reward = self.calculate_reward(action)
         done = False
@@ -93,8 +96,10 @@ class EvalUMAP1(gym.Env):
         info = {}
         return observation, reward, done, info
     
+    '''
+        Resets the environment to default values (default data is training data)
+    '''
     def reset(self):
-        
         # ------------ load data ------------------ #
         # ------------ train as default ------------------ #
         self.data = pd.read_csv(self.dir_path+'/data/user_1/train_set.csv' )
@@ -110,11 +115,7 @@ class EvalUMAP1(gym.Env):
         
         # ------------- Create the engagements using the classifier ------- #
         self.engagements = self.predictEngagements(self.notifications, self.contexts)
-        
-        # These are now different  - the action space is made up of combinations of possible Notifications
-        # the observation space is made up of the possible contexts
-        # best use label encoders
-        
+                
         self.epoch = 0
         self.openedNotifications = []
         self.openedActions = []
@@ -125,11 +126,18 @@ class EvalUMAP1(gym.Env):
         self.correctlyOpened = 0
         self.correctlyDismissed = 0
     
+    '''
+        Shuts down the environment
+    '''
     def close(self):
         print('To do.. close')
         
     # ----------- Metric methods ----------#
     
+    '''
+        Helper method for donut charts - ensures just the relevant metric
+        is printed. 
+    '''
     def autopct_generator(self, ignored):
         def inner_autopct(pct):
             if round(pct, 2)==ignored:
@@ -138,16 +146,23 @@ class EvalUMAP1(gym.Env):
                 return ('%.2f' % pct)+'%'
         return inner_autopct
     
+    '''
+        Saves the results of the evaluation and generates charts. Arguments are the 
+        different metric results from the evaluation and the data_set_type used in 
+        the evaluation (train or test).
+    '''
     def save_results(self, ctr_results, diversity_score, enticement_score, data_set_type):
         
+        # --------- Model CTR Bar (not shown, but saved) ---------------- #
         tmp = pd.DataFrame(ctr_results)
         ax = sns.catplot(x="model", y="ctr_score", data=tmp, height=6, kind="bar")
         ax.set(xlabel='Model', ylabel='CTR (%)', title="CTR performance of notifications")
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/ctr_results.png', bbox_inches='tight')
         plt.clf()
         
+        
+        # --------- AdaBoost CTR Donut ---------------- #
         adaboost_score = ctr_results[0]['ctr_score']
-        # AdaBoost
         if round(adaboost_score, 2) == 50.00:
             adaboost_score = 50.01
         plt.rcParams.update({'font.size': 22})
@@ -161,7 +176,7 @@ class EvalUMAP1(gym.Env):
         p.gca().add_artist(my_circle)
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/ctr_pie.png', bbox_inches='tight')
         
-        # enticement
+        # --------- Enticement Donut ---------------- #
         if round(enticement_score, 2) == 50.00:
             enticement_score = 49.99
         plt.rcParams.update({'font.size': 22})
@@ -175,7 +190,7 @@ class EvalUMAP1(gym.Env):
         p.gca().add_artist(my_circle)
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/enticement_pie.png', bbox_inches='tight')
         
-        # diversity
+        # --------- Diversity Donut ---------------- #
         if round(diversity_score, 2) == 50.00:
             diversity_score = 50.01
         plt.rcParams.update({'font.size': 22})
@@ -194,6 +209,9 @@ class EvalUMAP1(gym.Env):
         ctr_results.append({'metric': 'enticement_score', 'score': enticement_score})
         joblib.dump(ctr_results, self.dir_path+'/results/'+data_set_type+'/results.joblib')
         
+    '''
+        Convert enticement string to tiered value
+    '''
     def enticement_to_value(self, val):
         if val == 'high':
             return 3
@@ -202,7 +220,15 @@ class EvalUMAP1(gym.Env):
         else:
             return 1
     
+    '''
+        Calculates the metrics (CTR, Diversity, Enticement) for the generated
+        notifications. Arguments are the notifications, contexts and indication
+        of train or test evaluation to be performed. Returns the results in dict.
+    '''
     def execute_evaluation(self, notifications, contexts, test):
+        eval_string = 'evaluating.'
+        print(eval_string)
+        
         if test:
             data_time_period = '6months'
         else:
@@ -222,27 +248,20 @@ class EvalUMAP1(gym.Env):
         sss = StratifiedShuffleSplit(n_splits=10, test_size=0.2, random_state=888)
         
         for name in self.models:
-            print('__Model__: '+name)
+            eval_string = eval_string+'.'
+            print(eval_string)
             
             model = joblib.load(self.dir_path+'/data/user_1/'+data_time_period+'_'+name+'.joblib')
             predictions = model.predict(X)
-            
-            
-            # self.results.append({'model':name, 'metric':'CTR', ((np.sum(predictions)/len(predictions))*100)})
             ctr_results.append({'model': name, 'ctr_score': ((np.sum(predictions)/len(predictions))*100)})
-            
-            '''cv_results = cross_val_score(model, X, y, cv=sss, scoring='accuracy')
-            self.results.append({'model':name, 'metric':'Accuracy', 'score':cv_results.mean()})
-            cv_results = cross_val_score(model, X, y, cv=sss, scoring='precision')
-            self.results.append({'model':name, 'metric':'Precision', 'score':cv_results.mean()})
-            cv_results = cross_val_score(model, X, y, cv=sss, scoring='recall')
-            self.results.append({'model':name, 'metric':'Recall', 'score':cv_results.mean()})
-            cv_results = cross_val_score(model, X, y, cv=sss, scoring='f1')
-            self.results.append({'model':name, 'metric':'F1', 'score':cv_results.mean()})'''
             
         self.save_results(ctr_results, diversity_score, enticement_score, 'test' if test else 'train')
         return ctr_results
         
+    '''
+        Compares the agents action with the ground truth value
+        (not used in this Task)
+    '''
     def calculate_reward(self, action):
         ground_truth = self.engagements
         self.update_metrics(ground_truth, action)
@@ -251,6 +270,10 @@ class EvalUMAP1(gym.Env):
         else:
             return -1 
     
+    '''
+        Updates the running totals for UI
+        (not used in this Task)
+    '''
     def update_metrics(self, ground_truth, action):
         if action == 1:
             self.openedActions.append(action)
@@ -266,19 +289,31 @@ class EvalUMAP1(gym.Env):
                 self.correctlyDismissed = self.correctlyDismissed + 1
     
     # ----------- Simulated user methods ----------#
-    
+    '''
+        Encodes a notification, context pair and concatenates ready for use by 
+        classifiers.
+    '''
     def encode(self, notifications, contexts):
         notif_enc = self.notif_ohe.transform(notifications) 
         context_enc_cat = self.context_ohe.transform(contexts[self.context_cat])
         context_enc_scale = self.context_scaler.transform(contexts[self.context_scale]) 
         return np.concatenate([notif_enc, context_enc_cat, context_enc_scale], axis=1)
     
+    '''
+        Takes notification, context pairs and predicts whether or not the user
+        will open them. Returns actions (1 for opened, 0 for dismissed)
+    '''
     def predictEngagements(self, notifications, contexts):
         enc = self.encode(notifications, contexts)
         return self.clf.predict(enc)
     
     # ----------- EvalUMAP methods ----------#
     
+    '''
+        Called by the participant to receive data for the Task. Argument is a variable 
+        indicating whether they wish to receive test or train data. Resets all the 
+        necessary variables and returns data.
+    '''
     def request_data(self, test=False):
         self.reset()
         
@@ -325,6 +360,10 @@ class EvalUMAP1(gym.Env):
         else:
             return self.contexts, self.notifications, self.engagements
         
+    '''
+        Called by the participant when they wish to evaluate their 
+        generated notifications. Argument is a dataframe of notifications.
+    '''
     def evaluate(self, notifications=None):
         
         if isinstance(notifications, pd.DataFrame):
@@ -333,12 +372,18 @@ class EvalUMAP1(gym.Env):
             else: 
                 print('Incorrect number of notifications submitted')
                 return
-            
+        else:
+            print('notifications must be passed as a DataFrame with column names identical'+
+                  'to those of the training data (also described in the docs)')
         results = self.execute_evaluation(self.notifications, self.contexts, self.test)
-        print(results)
+        print('Evaluation results:\n\n', results)
             
         
-    
+'''
+    Class which is used to describe the action and observation spaces.
+    The action space is the possible notifications.
+    The observation space is the possible contexts.
+'''
 class DataSpace:
     
     def __init__(self, data):
@@ -356,6 +401,9 @@ class DataSpace:
                 col_info['median'] = data[col].median()
             self.info[col] = col_info
             
+    '''
+        Takes a random sample from each column and returns in dict form.
+    '''
     def sample(self):
         sample = {}
         for col in self.info:
@@ -366,24 +414,6 @@ class DataSpace:
             else:
                 sample[col] = randrange(self.info[col]['min'], (self.info[col]['max']+1))
         return sample
-        
-class ClassificationBattery:
-    
-    def __init__(self, data, data_set_type, notif_cat, context_cat, context_scale, dir_path):
-        
-        
-        if data_set_type is 'train':
-            self.data_time_period = '3months'
-        elif data_set_type is 'test': 
-            self.data_time_period = '6months'
-        else:
-            self.data_time_period = '3months'
-        
-        # load the adaboost model as UI user
-        self.clf = joblib.load(self.dir_path+'/data/user_1/'+self.data_time_period+'_Adaboost.joblib')
-        self.data.action = self.prediction(self.data[self.notif_cat], self.data[self.context_cat + self.context_scale])
-        
-        self.results = []
                                           
     
     
