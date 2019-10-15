@@ -6,9 +6,9 @@
 ## A Custom OpenAI Gym Environment for Intelligent Push-notifications
 
 #### Content:
-1. [Quick start](#quick-start)
-2. [Running basic environment](#Running-basic-environment)
-3. [EvalUMAP Challenge 2019](#Evalumap-challenge-2019) 
+1. [Quick start](#1.-quick-start)
+2. [Running basic environment](#2.-Running-basic-environment)
+3. [EvalUMAP Challenge 2019](#EvalUMAP-challenge-2019) 
 4. [Task description](#Task-description)
 5. [Data explained](#Data-explained)
 6. [Running task 1](#Running-task-1)
