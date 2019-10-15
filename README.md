@@ -23,7 +23,7 @@
 5. [Data explained](#Data-explained)
 6. [Running task 1](#Running-task-1)
 7. [Running task 2](#Running-task-2)
-8. [Submitting results](#Submitting-results)
+8. [Submitting results](#Submitting-results-from-gym-push)
 9. [Submitting your Results Overview paper](#Submitting-your-Results-Overview-paper)
 10. [Contact details](#Contact-details)
 
