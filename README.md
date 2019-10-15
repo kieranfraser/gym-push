@@ -14,7 +14,8 @@
 6. [Running task 1](#Running-task-1)
 7. [Running task 2](#Running-task-2)
 8. [Submitting results](#Submitting-results)
-9. [Contact details](#Contact-details)
+9. [Submitting your Results Overview paper](#Submitting-your-Results-Overview-paper)
+10. [Contact details](#Contact-details)
 
 
 ## Quick start
@@ -46,10 +47,24 @@ The output of executing above code:
   <img width="50%" height="50%" src="docs/img/basic-v0.png">
 </p>
 
-## EvalUMAP Challenge 2019
-The use-case for the proposed challenge is personalized mobile phone notification generation. Previous work in this space has explored intercepting incoming mobile notifications, mediating their delivery such that irrelevant or unnecessary notifications do not reach the end-user and generating synthetic notification datasets from real world usage data. The next step toward an improved notification experience is to generate personalised notifications in real-time, removing the need for interception and delivery mediation. 
+## EvalUMAP Challenge 2020
+The use-case for this challenge is personalized mobile phone notification generation. Previous work in this space has explored intercepting incoming mobile notifications, mediating their delivery such that irrelevant or unnecessary notifications do not reach the end-user and generating synthetic notification datasets from real world usage data. The next step toward an improved notification experience is to generate personalised notifications in real-time, removing the need for interception and delivery mediation. 
 
-Specifically, assuming individuals’ interactions with their mobile phone have been logged, the challenge is to create an approach to generate personalized notifications on individuals’ mobile phones, whereby such personalization would consist of deciding what events (emails, alerts, reminders etc.) to show to the individual and when to show them. Given the number of steps associated with such personalization, the task proposed in this paper will focus on the first step in this process, that of user model generation using the logged mobile phone interactions. For this task a dataset consisting of several individuals’ mobile phone interactions is provided, described [here](#Data-explained).
+Specifically, assuming individuals’ interactions with their mobile phone have been logged, the challenge is to create an approach to generate personalized notifications on individuals’ mobile phones, whereby such personalization would consist of deciding what events (emails, alerts, reminders etc.) to show to the individual and when to show them. Given the number of steps associated with such personalization, the task proposed will focus on the first step in this process, that of user model generation using the logged mobile phone interactions. For this task a dataset consisting of several individuals’ mobile phone interactions is provided, described [here](#Data-explained).
+
+#### Important Dates
+
+|Date|Description|
+|-------------|-----------------------------|
+|31st October 2019 | 1st Feb 2020:Task registration open|
+|31st October 2019| Training data released|
+|28th Feb. 2020| User-model development freeze (no further changes allowed) & submission of developed user-model|
+|1st March 2020| Test data release|
+|15th March 2020| Evaluation lab closes; participants submit their results on the test data|
+|April 2020| Participants submit their results overview papers|
+|Date tbc (by UMAP)| Notification of acceptance|
+|Date tbc (by UMAP)| Camera-ready paper submission deadline|
+|July 2020| Evaluation Track runs at UMAP 2020|
 
 ## Task Description
 #### Task 1
@@ -138,6 +153,21 @@ To be added.
 
 ## Submitting results
 To be added.
+
+## Submitting your Results Overview paper
+Your results overview paper should be max. 6-pages long.  Submissions should be in ACM SIGS format. LaTeX and Word templates are available [here](https://www.acm.org/publications/proceedings-template).
+Papers should be submitted in pdf format through the [EasyChair system](https://easychair.org/conferences/?conf=evalumap2020) no later than midnight Pacific Daylight Time on April XX, 2020 *(date to be set by UMAP)*. Submissions will be reviewed by members of the workshop program committee. Accepted papers will be included in the UMAP 2020 EvalUMAP workshop proceedings.
+
+Your paper should include the following:
+
+- Brief description of the EvalUMAP challenge to set context & link to the challenge at github (https://github.com/kieranfraser/gym-push).  
+- Description of the technique that you implemented and your main objectives and progress beyond the state-of-the-art if applicable.
+- The results you obtained.
+- Thoughts on future work.
+
+The following reference for the EvalUMAP challenge description should be included in your paper:
+
+*Conlan, Owen and Fraser, Kieran and Kelly, Liadh and Yousuf, Bilal (2019) A User Modeling Shared Challenge Proposal. In Proceedings of the 10th Conference and Labs of the Evaluation Forum, Lecture Notes in Computer Science (LNCS), Springer, September 2019.*
 
 ## Contact details
 The following is a list of people who are available to answer queries:

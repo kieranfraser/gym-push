@@ -32,15 +32,21 @@ class EvalUMAP1(gym.Env):
     def __init__(self):
         print('EvalUMAP1-v0 environment')
         self.dir_path = os.path.dirname(os.path.realpath(__file__))
+        
         try:
-            os.makedirs(self.dir_path+'/results/train/')
-            os.makedirs(self.dir_path+'/results/test/')
+            os.makedirs(self.dir_path+'/results/train/task1/')
+        except FileExistsError:
+            pass
+        
+        try:
+            os.makedirs(self.dir_path+'/results/test/task1/')
         except FileExistsError:
             pass
         
         # ------------ load data ------------------ #
         # ------------ train as default ------------------ #
         self.data = pd.read_csv(self.dir_path+'/data/user_1/train_set.csv' )
+        self.data = self.data.sort_values(by=['time'])
         self.clf = joblib.load(self.dir_path+'/data/user_1/3months_Adaboost.joblib')
         self.notif_ohe = joblib.load(self.dir_path+'/data/user_1/notif_ohe.joblib')
         self.context_ohe = joblib.load(self.dir_path+'/data/user_1/context_ohe.joblib')
@@ -162,7 +168,7 @@ class EvalUMAP1(gym.Env):
         tmp = pd.DataFrame(ctr_results)
         ax = sns.catplot(x="model", y="ctr_score", data=tmp, height=6, kind="bar")
         ax.set(xlabel='Model', ylabel='CTR (%)', title="CTR performance of notifications")
-        plt.savefig(self.dir_path+'/results/'+data_set_type+'/ctr_results.png', bbox_inches='tight')
+        plt.savefig(self.dir_path+'/results/'+data_set_type+'/task1/ctr_results.png', bbox_inches='tight')
         plt.clf()
         
         
@@ -179,7 +185,7 @@ class EvalUMAP1(gym.Env):
         ax.set_title("Click-Through-Rate Score", fontsize= 22)
         p=plt.gcf()
         p.gca().add_artist(my_circle)
-        plt.savefig(self.dir_path+'/results/'+data_set_type+'/ctr_pie.png', bbox_inches='tight')
+        plt.savefig(self.dir_path+'/results/'+data_set_type+'/task1/ctr_pie.png', bbox_inches='tight')
         
         # --------- Enticement Donut ---------------- #
         if round(enticement_score, 2) == 50.00:
@@ -193,7 +199,7 @@ class EvalUMAP1(gym.Env):
         ax.set_title("Enticement Score", fontsize= 22)
         p=plt.gcf()
         p.gca().add_artist(my_circle)
-        plt.savefig(self.dir_path+'/results/'+data_set_type+'/enticement_pie.png', bbox_inches='tight')
+        plt.savefig(self.dir_path+'/results/'+data_set_type+'/task1/enticement_pie.png', bbox_inches='tight')
         
         # --------- Diversity Donut ---------------- #
         if round(diversity_score, 2) == 50.00:
@@ -207,14 +213,14 @@ class EvalUMAP1(gym.Env):
         ax.set_title("Diversity Score", fontsize= 22)
         p=plt.gcf()
         p.gca().add_artist(my_circle)
-        plt.savefig(self.dir_path+'/results/'+data_set_type+'/diversity_pie.png', bbox_inches='tight')
+        plt.savefig(self.dir_path+'/results/'+data_set_type+'/task1/diversity_pie.png', bbox_inches='tight')
         
         plt.show()
         ctr_results.append({'metric': 'diversity_score', 'score': diversity_score})
         ctr_results.append({'metric': 'enticement_score', 'score': enticement_score})
-        joblib.dump(ctr_results, self.dir_path+'/results/'+data_set_type+'/results.joblib')
+        joblib.dump(ctr_results, self.dir_path+'/results/'+data_set_type+'/task1/results.joblib')
         
-        print('Results saved here: ', self.dir_path+'/results/'+data_set_type+'/')
+        print('Results saved here: ', self.dir_path+'/results/'+data_set_type+'/task1/')
         
     '''
         Convert enticement string to tiered value
@@ -327,6 +333,7 @@ class EvalUMAP1(gym.Env):
         if test:
             self.test = True
             self.data = pd.read_csv(self.dir_path+'/data/user_1/test_set.csv' )
+            self.data = self.data.sort_values(by=['time'])
             self.clf = joblib.load(self.dir_path+'/data/user_1/6months_Adaboost.joblib')
 
             self.contexts = self.data[(self.context_cat+self.context_scale)]
@@ -340,6 +347,7 @@ class EvalUMAP1(gym.Env):
         else:
             self.test = False
             self.data = pd.read_csv(self.dir_path+'/data/user_1/train_set.csv' )
+            self.data = self.data.sort_values(by=['time'])
             self.clf = joblib.load(self.dir_path+'/data/user_1/3months_Adaboost.joblib')
 
             self.contexts = self.data[(self.context_cat+self.context_scale)]
