@@ -61,9 +61,9 @@ Specifically, assuming individuals’ interactions with their mobile phone have 
 |28th Feb. 2020| User-model development freeze (no further changes allowed) & submission of developed user-model|
 |1st March 2020| Test data release|
 |15th March 2020| Evaluation lab closes; participants submit their results on the test data|
-|April 2020| Participants submit their results overview papers|
-|Date tbc (by UMAP)| Notification of acceptance|
-|Date tbc (by UMAP)| Camera-ready paper submission deadline|
+| **April 2020** | Participants submit their results overview papers|
+| *Date tbc (by UMAP)* | Notification of acceptance|
+| *Date tbc (by UMAP)* | Camera-ready paper submission deadline|
 |July 2020| Evaluation Track runs at UMAP 2020|
 
 ## Task Description
