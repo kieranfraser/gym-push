@@ -18,13 +18,13 @@
 10. [Contact details](#Contact-details)
 
 
-## 1. Quick start
+## Quick start
 Install via pip:
 ```sh
 > pip install gym-push
 ```
 > Only tested using versions: pip==19.2.3 python==3.6
-## 2. Running basic environment
+## Running basic environment
 The *basic-v0* environment simulates notifications arriving to a user in different contexts. The features of the context and notification are simplified. 
 
 Below is an example of setting up the basic environment and stepping through each moment (context) a notification was delivered and taking an action (open/dismiss) upon it. For demonstration purposes, this *agent* randomly samples an action from the action_space. Intelligent agents will use the features of the context and notification to identify optimal performance over time.
