@@ -166,7 +166,7 @@ while not finished:
     
     if epoch%3000==0 and epoch>0:
         print('------------- Epoch: '+str(epoch)+' ------------------')
-        print('Latest CTR score', info['ctr'][-1]['ctr_score'])
+        print('Latest CTR score', info['ctr'][-len(env.models):][0]['ctr_score'])
         print('Latest Diversity score', info['diversity'][-1]['score'])
         print('Latest Enticement score', info['enticement'][-1]['score'])
         
