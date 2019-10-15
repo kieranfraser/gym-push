@@ -178,19 +178,19 @@ When run, results should approximate:
 Resetting environment.
 Updated results at epoch:  3000
 ------------- Epoch: 3000 ------------------
-Latest CTR score 21.959346884371875
+Latest CTR score 22.692435854715097
 Latest Diversity score 100.0
-Latest Enticement score 52.0326557814062
+Latest Enticement score 50.566477840719756
 Updated results at epoch:  6000
 ------------- Epoch: 6000 ------------------
-Latest CTR score 21.379770038326946
+Latest CTR score 22.42959506748875
 Latest Diversity score 100.0
-Latest Enticement score 50.733211131478086
+Latest Enticement score 50.324945842359604
 Updated results at epoch:  9000
 ------------- Epoch: 9000 ------------------
-Latest CTR score 21.475391623152984
+Latest CTR score 22.041995333851794
 Latest Diversity score 100.0
-Latest Enticement score 50.205532718586824
+Latest Enticement score 50.083324075102766
 Finished. Saving final results at epoch:  9313
 ```
 <p align="center">

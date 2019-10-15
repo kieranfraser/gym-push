@@ -242,21 +242,22 @@ class EvalUMAP2(gym.Env):
     '''
     def save_results(self, data_set_type, finished):
         
+        sns.set(style='white', font_scale=1.5, palette='pastel')
         tmp = pd.DataFrame(self.ctr_results)
         ax = sns.catplot(x="epoch", y="ctr_score", hue="model", 
-                         kind="point", data=tmp, height=8, ci=None)
+                         kind="point", data=tmp, height=8, aspect=1, ci=None)
         ax.set(xlabel='Epoch', ylabel='CTR (%)', title='Click-Through-Rate over Time')
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/ctr_results.png', bbox_inches='tight')
 
         tmp = pd.DataFrame(self.diversity_results)
         ax = sns.catplot(x="epoch", y="score", 
-                         kind="point", data=tmp, height=8, ci=None)
+                         kind="point", data=tmp, height=7, aspect=1.2, ci=None)
         ax.set(xlabel='Epoch', ylabel='Score (%)', title='Diversity over Time')
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/diversity_results.png', bbox_inches='tight')
 
         tmp = pd.DataFrame(self.enticement_results)
         ax = sns.catplot(x="epoch", y="score", 
-                         kind="point", data=tmp, height=8, ci=None)
+                         kind="point", data=tmp, height=7, aspect=1.2, ci=None)
         ax.set(xlabel='Epoch', ylabel='Score (%)', title='Enticement over Time')
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/enticement_results.png', bbox_inches='tight')
         
