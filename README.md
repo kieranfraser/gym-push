@@ -3,8 +3,8 @@
   <img width="80%" src="docs/img/gym_push.gif">
 </p>
 
-<p align="center" style="padding-left:10%;padding-right:10%">
-  On average we receive ~80 push-notifications a day. This is illustrated above using notifications captured *in-the-wild*. All are distracting. The majority provide no value to the context and are dismissed. How can we improve this user experience?
+<p align="center" style="padding-left:20%;padding-right:20%">
+  On average we receive ~80 push-notifications a day. This is illustrated above using notifications captured <i>in-the-wild</i>. All are distracting. The majority provide no value to the context and are dismissed. <strong>How can we improve this user experience?</strong>
 </p>
 
 ## A Custom OpenAI Gym Environment for Intelligent Push-notifications
