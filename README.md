@@ -149,9 +149,58 @@ When run, results should approximate:
 
 
 ## Running task 2
-To be added.
+A jupyter notebook named *Example_evalumap2-v0* is provided in the docs folder demonstrating how to set up the relevant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
 
-## Submitting results
+```sh
+import gym
+import pandas as pd
+
+env = gym.make('gym_push:evalumap2-v0')
+
+context = env.reset(test=False, verbosity=3000)
+finished = False
+epoch = 0
+
+while not finished:
+    context, engagement, finished, info = env.step(pd.DataFrame([env.action_space.sample()]))
+    
+    if epoch%3000==0 and epoch>0:
+        print('------------- Epoch: '+str(epoch)+' ------------------')
+        print('Latest CTR score', info['ctr'][-1]['ctr_score'])
+        print('Latest Diversity score', info['diversity'][-1]['score'])
+        print('Latest Enticement score', info['enticement'][-1]['score'])
+        
+    epoch += 1
+    
+```
+When run, results should approximate:
+```sh
+Resetting environment.
+Updated results at epoch:  3000
+------------- Epoch: 3000 ------------------
+Latest CTR score 21.959346884371875
+Latest Diversity score 100.0
+Latest Enticement score 52.0326557814062
+Updated results at epoch:  6000
+------------- Epoch: 6000 ------------------
+Latest CTR score 21.379770038326946
+Latest Diversity score 100.0
+Latest Enticement score 50.733211131478086
+Updated results at epoch:  9000
+------------- Epoch: 9000 ------------------
+Latest CTR score 21.475391623152984
+Latest Diversity score 100.0
+Latest Enticement score 50.205532718586824
+Finished. Saving final results at epoch:  9313
+```
+<p align="center">
+    <img src="docs/img/ctr_task2_example.png" width="30%"/> <img src="docs/img/enticement_task2_example.png" width="30%"/> <img src="docs/img/diversity_task2_example.png" width="30%"/> 
+</p>
+<p align="center">
+    <img src="docs/img/ctr_task2_epoch.png" width="30%"/> <img src="docs/img/enticement_task2_epoch.png" width="30%"/> <img src="docs/img/diversity_task2_epoch.png" width="30%"/> 
+</p>
+
+## Submitting results from gym-push
 To be added.
 
 ## Submitting your Results Overview paper
@@ -160,7 +209,7 @@ Papers should be submitted in pdf format through the [EasyChair system](https://
 
 Your paper should include the following:
 
-- Brief description of the EvalUMAP challenge to set context & link to the challenge at github (https://github.com/kieranfraser/gym-push).  
+- Brief description of the EvalUMAP challenge to set context & link to the challenge on GitHub (https://github.com/kieranfraser/gym-push).  
 - Description of the technique that you implemented and your main objectives and progress beyond the state-of-the-art if applicable.
 - The results you obtained.
 - Thoughts on future work.
