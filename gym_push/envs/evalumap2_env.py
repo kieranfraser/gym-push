@@ -244,19 +244,19 @@ class EvalUMAP2(gym.Env):
         
         tmp = pd.DataFrame(self.ctr_results)
         ax = sns.catplot(x="epoch", y="ctr_score", hue="model", 
-                         kind="point", data=tmp, ci=None)
+                         kind="point", data=tmp, height=8, ci=None)
         ax.set(xlabel='Epoch', ylabel='CTR (%)', title='Click-Through-Rate over Time')
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/ctr_results.png', bbox_inches='tight')
 
         tmp = pd.DataFrame(self.diversity_results)
         ax = sns.catplot(x="epoch", y="score", 
-                         kind="point", data=tmp, ci=None)
+                         kind="point", data=tmp, height=8, ci=None)
         ax.set(xlabel='Epoch', ylabel='Score (%)', title='Diversity over Time')
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/diversity_results.png', bbox_inches='tight')
 
         tmp = pd.DataFrame(self.enticement_results)
         ax = sns.catplot(x="epoch", y="score", 
-                         kind="point", data=tmp, ci=None)
+                         kind="point", data=tmp, height=8, ci=None)
         ax.set(xlabel='Epoch', ylabel='Score (%)', title='Enticement over Time')
         plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/enticement_results.png', bbox_inches='tight')
         
@@ -277,13 +277,13 @@ class EvalUMAP2(gym.Env):
             adaboost_score = self.ctr_results[-len(self.models):][0]['ctr_score']
             if round(adaboost_score, 2) == 50.00:
                 adaboost_score = 50.01
-            plt.rcParams.update({'font.size': 22})
             fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(aspect="equal"))
             size=[round(adaboost_score,2), round(np.absolute(100-adaboost_score),2)]
             my_circle=plt.Circle( (0,0), 0.7, color='white')
             plt.pie(size, autopct=self.autopct_generator(round(np.absolute(100-adaboost_score),2)),
                     pctdistance=0.01, colors=['aquamarine','peachpuff'])
             ax.set_title("Click-Through-Rate Score", fontsize= 22)
+            plt.rcParams.update({'font.size': 22})
             p=plt.gcf()
             p.gca().add_artist(my_circle)
             plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/ctr_final_donut.png', bbox_inches='tight')
@@ -292,13 +292,13 @@ class EvalUMAP2(gym.Env):
             enticement_score = self.enticement_results[-1]['score']
             if round(enticement_score, 2) == 50.00:
                 enticement_score = 49.99
-            plt.rcParams.update({'font.size': 22})
             fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(aspect="equal"))
             size=[round(enticement_score,2), round(np.absolute(100-enticement_score),2)]
             my_circle=plt.Circle( (0,0), 0.7, color='white')
             plt.pie(size, autopct=self.autopct_generator(round(np.absolute(100-enticement_score),2)),
                     pctdistance=0.01, colors=['peachpuff','aquamarine'])
             ax.set_title("Enticement Score", fontsize= 22)
+            plt.rcParams.update({'font.size': 22})
             p=plt.gcf()
             p.gca().add_artist(my_circle)
             plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/enticement_final_donut.png', bbox_inches='tight')
@@ -307,13 +307,13 @@ class EvalUMAP2(gym.Env):
             diversity_score = self.diversity_results[-1]['score']
             if round(diversity_score, 2) == 50.00:
                 diversity_score = 50.01
-            plt.rcParams.update({'font.size': 22})
             fig, ax = plt.subplots(figsize=(7, 7), subplot_kw=dict(aspect="equal"))
             size=[round(diversity_score,2), round(np.absolute(100-diversity_score),2)]
             my_circle=plt.Circle( (0,0), 0.7, color='white')
             plt.pie(size, autopct=self.autopct_generator(round(np.absolute(100-diversity_score),2)),
                     pctdistance=0.01, colors=['aquamarine','peachpuff'])
             ax.set_title("Diversity Score", fontsize= 22)
+            plt.rcParams.update({'font.size': 22})
             p=plt.gcf()
             p.gca().add_artist(my_circle)
             plt.savefig(self.dir_path+'/results/'+data_set_type+'/task2/diversity_final_donut.png', bbox_inches='tight')
