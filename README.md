@@ -7,9 +7,9 @@
 
 >To compete in the challenge you need to:
 > - (1) Register [here](https://docs.google.com/forms/d/e/1FAIpQLSfZ8ZgIq_FGkcyypmkmdI0NC-6vuKFbzAaK8WgkkrJl2POtcg/viewform?vc=0&c=0&w=1)
-> - (2) Sign up to the EvalUMAP [Google Group for updates](https://groups.google.com/forum/#!forum/evalumap)
-><br>After you register you will receive an email with details on getting started with the challenge.
->Queries can be directed to [Google Group](https://groups.google.com/forum/#!forum/evalumap) OR evalumap@adaptcentre.ie
+> - (2) Sign up to the EvalUMAP [Google Group](https://groups.google.com/forum/#!forum/evalumap) for updates
+><br><br>After you register you will receive an email with details on getting started with the challenge.
+>Queries can be directed to the [Google Group](https://groups.google.com/forum/#!forum/evalumap) OR evalumap@adaptcentre.ie
 
 #### Content:
 1. [Quick start](#1.-Quick-start)
