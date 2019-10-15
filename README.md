@@ -197,7 +197,10 @@ Finished. Saving final results at epoch:  9313
     <img src="docs/img/ctr_task2_example.png" width="30%"/> <img src="docs/img/enticement_task2_example.png" width="30%"/> <img src="docs/img/diversity_task2_example.png" width="30%"/> 
 </p>
 <p align="center">
-    <img src="docs/img/ctr_task2_epoch.png" width="30%"/> <img src="docs/img/enticement_task2_epoch.png" width="30%"/> <img src="docs/img/diversity_task2_epoch.png" width="30%"/> 
+    <img src="docs/img/ctr_task2_epoch.png" width="45%"/> <img src="docs/img/enticement_task2_epoch.png" width="45%"/> <img src="docs/img/diversity_task2_epoch.png" width="30%"/> 
+</p>
+<p align="center">
+    <img src="docs/img/diversity_task2_epoch.png" width="45%"/> 
 </p>
 
 ## Submitting results from gym-push
