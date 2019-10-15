@@ -16,7 +16,7 @@
 >Queries can be directed to the [Google Group](https://groups.google.com/forum/#!forum/evalumap) OR evalumap@adaptcentre.ie
 
 #### Content:
-1. [Quick start](#1.-Quick-start)
+1. [Quick start](#Quick-start)
 2. [Running basic environment](#Running-basic-environment)
 3. [EvalUMAP Challenge 2019](#EvalUMAP-Challenge-2020) 
 4. [Task description](#Task-description)
