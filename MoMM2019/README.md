@@ -9,7 +9,7 @@
 
 ## A Custom OpenAI Gym Environment for Intelligent Push-notifications
 
-> This section of the gym-push repository contains supporting material for our paper, "A Reinforcement Learning and Synthetic Data Approach to Mobile Notification Management", accepted for publication at MoMM2019.
+> This section of the gym-push repository contains supporting material for our paper, "A Reinforcement Learning and Synthetic Data Approach to Mobile Notification Management", accepted for publication at [MoMM2019](http://www.iiwas.org/conferences/momm2019/)
 
 #### Content:
 1. [Quick start](#Quick-start)
