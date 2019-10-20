@@ -1,6 +1,6 @@
 # **Gym-push**
 <p align="center">
-  <img width="80%" src="docs/img/gym_push.gif">
+  <img width="80%" src="../docs/img/gym_push.gif">
 </p>
 
 <p align="center" style="padding-left:20%;padding-right:20%">
