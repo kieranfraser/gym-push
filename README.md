@@ -29,12 +29,37 @@
 
 
 ## Quick start
-Install via pip:
+
+In order to get started quickly, we recommend briefly reading OpenAI's Gym [documentation](https://gym.openai.com/) and installing [Anaconda](https://docs.anaconda.com/anaconda/install/). Once Anaconda is installed, download our [environment.yml](https://anaconda.org/kieranfraser/push/2019.11.05.093340/download/environment.yml) and install using the following command (from Anaconda [documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file)):
+```sh
+> conda env create -f environment.yml
+```
+
+The environment name is *push*. You can activate by executing the following command:
+```
+(Windows)
+> activate push
+
+(Linux and macOS)
+> source activate push
+```
+
+If you already have Anaconda or another distribution installed and simply wish to install Gym-push, execute the following:
 ```sh
 > pip install gym-push
 ```
-> Only tested using versions: pip==19.2.3 python==3.6
+
+We demonstrate examples using [Jupyter Notebooks](https://jupyter.readthedocs.io/en/latest/tryjupyter.html#id1), but you may use any technology stack you wish, once it is able to interface with Gym-push. The examples are:
+- [Basic Problem Visualisation](docs/Example_basic-v0.ipynb)
+- [Task 1 Example](docs/Example_evalumap1-v0.ipynb)
+- [Task 2 Example](docs/Example_evalumap2-v0.ipynb)
+
+
+> Note Only tested using versions: pip==19.2.3 python==3.6
 >> 
+
+
+
 ## Running basic environment
 The *basic-v0* environment simulates notifications arriving to a user in different contexts. The features of the context and notification are simplified. 
 
@@ -67,7 +92,7 @@ Specifically, assuming individuals’ interactions with their mobile phone have 
 
 |Date|Description|
 |-------------|-----------------------------|
-|31st October 2019 | 1st Feb 2020: Task registration open|
+|31st October 2019| Task registration open|
 |31st October 2019| Training data released|
 |28th Feb. 2020| User-model development freeze (no further changes allowed) & submission of developed user-model|
 |1st March 2020| Test data release|
@@ -135,7 +160,7 @@ The data can be broken down into three subsets: notifications, contexts and enga
 |action|int64|The action taken by the user on a notification in a given context, possible values: 1 (opened), 0 (dismissed)|
 
 ## Running task 1
-A jupyter notebook named *Example_evalumap1-v0* is provided in the docs folder demonstrating how to set up the relevant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
+A [Jupyter Notebook](docs/Example_evalumap1-v0.ipynb) is provided in the docs folder demonstrating how to set up the relevant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
 
 ```sh
 import gym
@@ -160,7 +185,7 @@ When run, results should approximate:
 
 
 ## Running task 2
-A jupyter notebook named *Example_evalumap2-v0* is provided in the docs folder demonstrating how to set up the relevant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
+A [Jupyter Notebook](docs/Example_evalumap2-v0.ipynb) is provided in the docs folder demonstrating how to set up the relevant environment for this task and interact with it. The following is a brief extract from it illustrating a random model being evaluated:
 
 ```sh
 import gym
