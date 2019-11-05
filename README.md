@@ -18,7 +18,7 @@
 #### Content:
 1. [Quick start](#Quick-start)
 2. [Running basic environment](#Running-basic-environment)
-3. [EvalUMAP Challenge 2019](#EvalUMAP-Challenge-2020) 
+3. [EvalUMAP Challenge 2020](#EvalUMAP-Challenge-2020) 
 4. [Task description](#Task-description)
 5. [Data explained](#Data-explained)
 6. [Running task 1](#Running-task-1)
