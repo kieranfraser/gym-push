@@ -34,6 +34,7 @@ In order to get started quickly, we recommend briefly reading OpenAI's Gym [docu
 ```sh
 > conda env create -f environment.yml
 ```
+> If an SSL error occurs ensure that Anaconda3, Anaconda3\scripts and Anaconda3\Library\bin are added to PATH
 
 The environment name is *push*. You can activate by executing the following command:
 ```
