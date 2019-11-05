@@ -45,7 +45,7 @@ The environment name is *push*. You can activate by executing the following comm
 > source activate push
 ```
 
-If you already have Anaconda or another distribution installed and simply wish to install Gym-push, execute the following:
+Once you have installed and activated the *push* environment, execute the following to install *Gym-push*:
 ```sh
 > pip install gym-push
 ```
