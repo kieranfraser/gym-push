@@ -30,7 +30,7 @@
 
 ## Quick start
 
-In order to get started quickly, we recommend briefly reading OpenAI's Gym [documentation](https://gym.openai.com/) and installing [Anaconda](https://docs.anaconda.com/anaconda/install/). Once Anaconda is installed, download our [environment.yml](https://anaconda.org/kieranfraser/push/2020.01.06.100131/download/environment.yml) and install using the following command (from Anaconda [documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file)):
+In order to get started quickly, we recommend briefly reading OpenAI's Gym [documentation](https://gym.openai.com/) and installing [Anaconda](https://docs.anaconda.com/anaconda/install/). Once Anaconda is installed, download our [environment.yml](https://anaconda.org/kieranfraser/push/2020.01.16.123713/download/environment.yml) and install using the following command (from Anaconda [documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file)):
 ```sh
 > conda env create -f environment.yml
 ```
