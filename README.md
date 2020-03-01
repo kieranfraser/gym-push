@@ -242,7 +242,69 @@ Finished. Saving final results at epoch:  9313
 </p>
 
 ## Submitting results from gym-push
-To be added.
+Submit your model and your results folder via one of the following methods (the first method is preferred):
+
+1. **Github** - Create a repository with your user model and the accompanying results achieved. Comment a link to the repository in the [Google Group]([https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y](https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y)) along with the email you registered with.
+2. **Google Group** - Zip your model and training results and attach it to a post in the [Google Group]([https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y](https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y)) along with the email you registered with.
+
+>Your results folder should contain all of the following files for the tasks which you attempted (generated for you by gym-push): 
+> **Task 1**: *ctr_pie.png, ctr_results.png, diversity_pie.png, enticement_pie.png, results.joblib*
+> **Task 2**: *ctr_final_bar.png, ctr_final_donut.png, ctr_results.joblib, ctr_results.png, diversity_final_donut.png, diversity_results.joblib, diversity_results.png, enticement_final_donut.png, enticement_results.joblib, enticement_results.png*
+
+The validation data will be released on Monday (March 2nd). Models should not be altered once the validation data is released. You should validate your models using this data and update your submission with your models validation results by March 15th. An example of obtaining validation results for both Task 1 and Task 2 is outlined below.
+
+#### Task 1: Obtaining validation results
+Simply pass *validation=True* to the *request_data* method to ensure the environment is set to validation mode.
+```sh
+
+# 1. Request the validation data
+testing_contexts = env.request_data(validation=True)
+action_info = env.action_space.info
+
+# 2. Load my model (using random for demonstration purposes)
+def gen_rand_notification():
+    notification = {}
+    for feature in action_info:
+        notification[feature] = random.choice(action_info[feature]['labels'].classes_)
+    return notification
+
+# 3. Generate notification for each context
+random_notifications = [gen_rand_notification() for context in testing_contexts.values]
+random_notifications = pd.DataFrame(random_notifications)
+
+#3. Use gym-push to generate validation results
+env.evaluate(random_notifications)
+
+```
+> On completion, the local address of your validation results is printed to the screen:
+> Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task1/
+
+
+#### Task 2: Obtaining validation results
+Simply pass *validation=True* to the *reset* method to ensure the environment is set to validation mode.
+
+```sh
+
+start = datetime.now()
+
+context = env.reset(validation=True, verbosity=1000)
+finished = False
+
+while not finished:
+    # Model generates notification (random generation used for demo purposes)
+    random_notification = pd.DataFrame([env.action_space.sample()])
+    
+    # Pass the notification to the environment and get result and next context
+    context, engagement, finished, info = env.step(random_notification)
+    
+end = datetime.now()
+time_taken = end - start
+print('Time elapsed (h:mm:ss): ', time_taken) 
+
+```
+> On completion, the local address of your validation results is printed to the screen:
+> Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task1/
+
 
 ## Submitting your Results Overview paper
 Your results overview paper should be max. 6-pages long.  Submissions should be in ACM SIGS format. LaTeX and Word templates are available [here](https://www.acm.org/publications/proceedings-template).

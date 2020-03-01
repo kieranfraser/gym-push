@@ -38,6 +38,10 @@ class EvalUMAP2(gym.Env):
         except FileExistsError:
             pass
         try:
+            os.makedirs(self.dir_path+'/results/validation/task2/')
+        except FileExistsError:
+            pass
+        try:
             os.makedirs(self.dir_path+'/results/test/task2/')
         except FileExistsError:
             pass
@@ -88,6 +92,7 @@ class EvalUMAP2(gym.Env):
         self.correctlyOpened = 0
         self.correctlyDismissed = 0
         self.test = False
+        self.validation = False
         
         # ------------ evaluation variables ------------------ #
         sns.set(rc={'figure.figsize':(6,6)}, style='white', palette='pastel')
@@ -114,7 +119,7 @@ class EvalUMAP2(gym.Env):
             if self.epoch % self.verbosity == 0 and self.epoch > 0:
                 info = self.execute_evaluation(self.accumulated_notifications,
                                            self.contexts[:len(self.accumulated_notifications)],
-                                           self.test, False)
+                                           self.test, self.validation, False)
             else:
                 info = {}
 
@@ -125,7 +130,7 @@ class EvalUMAP2(gym.Env):
                 context = pd.DataFrame(columns=(self.context_cat+self.context_scale))
                 info = self.execute_evaluation(self.accumulated_notifications,
                                            self.contexts[:len(self.accumulated_notifications)],
-                                           self.test, True)
+                                           self.test, self.validation, True)
             else:
                 context = self.contexts.iloc[[self.epoch]]
             
@@ -138,7 +143,7 @@ class EvalUMAP2(gym.Env):
     '''
         Resets the environment to default values (default data is training data)
     '''
-    def reset(self, test=False, verbosity=1000):
+    def reset(self, test=False, validation=False, verbosity=1000):
         # ------------ load data ------------------ #
         # ------------ train as default ------------------ #
         print('Resetting environment.')
@@ -165,9 +170,32 @@ class EvalUMAP2(gym.Env):
             self.engagements = self.predictEngagements(self.notifications, self.contexts)
             self.engagements = pd.DataFrame(self.engagements, columns=['action'])
             self.max_diversity = self.data[self.notif_cat].nunique().sum()
+        elif validation:
+            self.validation = True
+            self.data = pd.read_csv(self.dir_path+'/data/user_8/validation_set.csv' )
+            self.data = self.data.sort_values(by=['time'])
+            self.clf = joblib.load(self.dir_path+'/data/user_8/9months_Adaboost.joblib')
             
+            self.notif_ohe = joblib.load(self.dir_path+'/data/user_8/notif_ohe.joblib')
+            self.context_ohe = joblib.load(self.dir_path+'/data/user_8/context_ohe.joblib')
+            self.context_scaler = joblib.load(self.dir_path+'/data/user_8/context_scaler.joblib')
+
+            self.notif_cat = ['appPackage', 'category', 'ledARGB', 'priority', 'vibrate', 'visibility', 'subject', 'enticement', 'sentiment']
+            self.context_cat = ['timeAppLastUsed', 'timeOfDay', 'dayOfWeek']
+            self.context_scale = ['unlockCount_prev2', 'uniqueAppsLaunched_prev2', 'dayOfMonth']
+
+            self.contexts = self.data[(self.context_cat+self.context_scale)]
+            self.notifications = self.data[self.notif_cat]
+            self.action_space = DataSpace(self.notifications)
+            self.observation_space = DataSpace(self.contexts)
+
+            # ------------- Create the engagements using the classifier ------- #
+            self.engagements = self.predictEngagements(self.notifications, self.contexts)
+            self.engagements = pd.DataFrame(self.engagements, columns=['action'])
+            self.max_diversity = self.data[self.notif_cat].nunique().sum()
         else:
             self.test = False
+            self.validation = False
             self.data = pd.read_csv(self.dir_path+'/data/user_1/train_set.csv' )
             self.data = self.data.sort_values(by=['time'])
             self.clf = joblib.load(self.dir_path+'/data/user_1/3months_Adaboost.joblib')
@@ -343,10 +371,13 @@ class EvalUMAP2(gym.Env):
         notifications. Arguments are the notifications, contexts and indication
         of train or test evaluation to be performed. Returns the results in dict.
     '''
-    def execute_evaluation(self, notifications, contexts, test, finished):
+    def execute_evaluation(self, notifications, contexts, test, validation, finished):
         if test:
             data_time_period = '6months'
             user = 'user_5'
+        elif validation:
+            data_time_period = '9months'
+            user = 'user_8'
         else:
             data_time_period = '3months'
             user = 'user_1'
@@ -369,8 +400,15 @@ class EvalUMAP2(gym.Env):
             model = joblib.load(self.dir_path+'/data/'+user+'/'+data_time_period+'_'+name+'.joblib')
             predictions = model.predict(X)
             self.ctr_results.append({'epoch': self.epoch, 'model': name, 'ctr_score': ((np.sum(predictions)/len(predictions))*100)})
+            
+        if test:
+            file_out = 'test'
+        elif validation:
+            file_out = 'validation'
+        else:
+            file_out = 'train'
            
-        self.save_results('test' if test else 'train', finished)
+        self.save_results(file_out, finished)
         return {'ctr':self.ctr_results, 'diversity':self.diversity_results, 'enticement':self.enticement_results}
 
     # ----------- Simulated user methods ----------#

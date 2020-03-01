@@ -43,6 +43,11 @@ class EvalUMAP1(gym.Env):
         except FileExistsError:
             pass
         
+        try:
+            os.makedirs(self.dir_path+'/results/validation/task1/')
+        except FileExistsError:
+            pass
+        
         # ------------ load data ------------------ #
         # ------------ train as default ------------------ #
         self.data = pd.read_csv(self.dir_path+'/data/user_1/train_set.csv' )
@@ -78,6 +83,7 @@ class EvalUMAP1(gym.Env):
         self.correctlyOpened = 0
         self.correctlyDismissed = 0
         self.test = False
+        self.validation = False
         
         # ------------ evaluation variables ------------------ #
         sns.set(rc={'figure.figsize':(6,6)}, style='white', palette='pastel')
@@ -238,12 +244,14 @@ class EvalUMAP1(gym.Env):
         notifications. Arguments are the notifications, contexts and indication
         of train or test evaluation to be performed. Returns the results in dict.
     '''
-    def execute_evaluation(self, notifications, contexts, test):
+    def execute_evaluation(self, notifications, contexts, test, validation):
         eval_string = 'evaluating.'
         print(eval_string)
         
         if test:
             data_time_period = '6months'
+        elif validation:
+            data_time_period = '9months'
         else:
             data_time_period = '3months'
             
@@ -268,7 +276,14 @@ class EvalUMAP1(gym.Env):
             predictions = model.predict(X)
             ctr_results.append({'model': name, 'ctr_score': ((np.sum(predictions)/len(predictions))*100)})
             
-        self.save_results(ctr_results, diversity_score, enticement_score, 'test' if test else 'train')
+        if test:
+            file_out = 'test'
+        elif validation:
+            file_out = 'validation'
+        else:
+            file_out = 'train'
+            
+        self.save_results(ctr_results, diversity_score, enticement_score, file_out)
         return ctr_results
         
     '''
@@ -327,11 +342,12 @@ class EvalUMAP1(gym.Env):
         indicating whether they wish to receive test or train data. Resets all the 
         necessary variables and returns data.
     '''
-    def request_data(self, test=False):
+    def request_data(self, test=False, validation=False):
         self.reset()
         
         if test:
             self.test = True
+            self.validation = False
             self.data = pd.read_csv(self.dir_path+'/data/user_1/test_set.csv' )
             self.data = self.data.sort_values(by=['time'])
             self.clf = joblib.load(self.dir_path+'/data/user_1/6months_Adaboost.joblib')
@@ -344,7 +360,23 @@ class EvalUMAP1(gym.Env):
             # ------------- Create the engagements using the classifier ------- #
             self.engagements = self.predictEngagements(self.notifications, self.contexts)
             self.engagements = pd.DataFrame(self.engagements, columns=['action'])
+        elif validation:
+            self.validation = True
+            self.test = False
+            self.data = pd.read_csv(self.dir_path+'/data/user_1/validation_set.csv' )
+            self.data = self.data.sort_values(by=['time'])
+            self.clf = joblib.load(self.dir_path+'/data/user_1/9months_Adaboost.joblib')
+
+            self.contexts = self.data[(self.context_cat+self.context_scale)]
+            self.notifications = self.data[self.notif_cat]
+            self.action_space = DataSpace(self.notifications)
+            self.observation_space = {'info':{}}
+
+            # ------------- Create the engagements using the classifier ------- #
+            self.engagements = self.predictEngagements(self.notifications, self.contexts)
+            self.engagements = pd.DataFrame(self.engagements, columns=['action'])
         else:
+            self.validation = False
             self.test = False
             self.data = pd.read_csv(self.dir_path+'/data/user_1/train_set.csv' )
             self.data = self.data.sort_values(by=['time'])
@@ -370,7 +402,7 @@ class EvalUMAP1(gym.Env):
         self.correctlyOpened = 0
         self.correctlyDismissed = 0
         
-        if test:
+        if test or validation:
             return self.contexts
         else:
             return self.contexts, self.notifications, self.engagements
@@ -390,7 +422,7 @@ class EvalUMAP1(gym.Env):
         else:
             print('notifications must be passed as a DataFrame with column names identical'+
                   'to those of the training data (also described in the docs)')
-        results = self.execute_evaluation(self.notifications, self.contexts, self.test)
+        results = self.execute_evaluation(self.notifications, self.contexts, self.test, self.validation)
         print('Evaluation results:\n\n', results)
             
         
