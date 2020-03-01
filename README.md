@@ -244,12 +244,12 @@ Finished. Saving final results at epoch:  9313
 ## Submitting results from gym-push
 Submit your model and your results folder via one of the following methods (the first method is preferred):
 
-1. **Github** - Create a repository with your user model and the accompanying results achieved. Comment a link to the repository in the [Google Group]([https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y](https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y)) along with the email you registered with.
-2. **Google Group** - Zip your model and training results and attach it to a post in the [Google Group]([https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y](https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y)) along with the email you registered with.
+1. **Github** - Create a repository with your user model and the accompanying results achieved. Comment a link to the repository in the [Google Group](https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y) along with the email you registered with.
+2. **Google Group** - Zip your model and training results and attach it to a post in the [Google Group](https://groups.google.com/forum/#!topic/evalumap/Gq_5sRQ-L1Y) along with the email you registered with.
 
 >Your results folder should contain all of the following files for the tasks which you attempted (generated for you by gym-push): 
-> **Task 1**: *ctr_pie.png, ctr_results.png, diversity_pie.png, enticement_pie.png, results.joblib*
-> **Task 2**: *ctr_final_bar.png, ctr_final_donut.png, ctr_results.joblib, ctr_results.png, diversity_final_donut.png, diversity_results.joblib, diversity_results.png, enticement_final_donut.png, enticement_results.joblib, enticement_results.png*
+> <br>**Task 1**: *ctr_pie.png, ctr_results.png, diversity_pie.png, enticement_pie.png, results.joblib*
+> <br>**Task 2**: *ctr_final_bar.png, ctr_final_donut.png, ctr_results.joblib, ctr_results.png, diversity_final_donut.png, diversity_results.joblib, diversity_results.png, enticement_final_donut.png, enticement_results.joblib, enticement_results.png*
 
 The validation data will be released on Monday (March 2nd). Models should not be altered once the validation data is released. You should validate your models using this data and update your submission with your models validation results by March 15th. An example of obtaining validation results for both Task 1 and Task 2 is outlined below.
 
