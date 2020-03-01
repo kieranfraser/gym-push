@@ -277,7 +277,7 @@ env.evaluate(random_notifications)
 
 ```
 > On completion, the local address of your validation results is printed to the screen:
-> Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task1/
+> <br>Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task1/
 
 
 #### Task 2: Obtaining validation results
@@ -303,7 +303,7 @@ print('Time elapsed (h:mm:ss): ', time_taken)
 
 ```
 > On completion, the local address of your validation results is printed to the screen:
-> Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task1/
+> <br>Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task2/
 
 
 ## Submitting your Results Overview paper
