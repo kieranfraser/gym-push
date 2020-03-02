@@ -251,7 +251,12 @@ Submit your model and your results folder via one of the following methods (the 
 > <br>**Task 1**: *ctr_pie.png, ctr_results.png, diversity_pie.png, enticement_pie.png, results.joblib*
 > <br>**Task 2**: *ctr_final_bar.png, ctr_final_donut.png, ctr_results.joblib, ctr_results.png, diversity_final_donut.png, diversity_results.joblib, diversity_results.png, enticement_final_donut.png, enticement_results.joblib, enticement_results.png*
 
-The validation data will be released on Monday (March 2nd). Models should not be altered once the validation data is released. You should validate your models using this data and update your submission with your models validation results by March 15th. An example of obtaining validation results for both Task 1 and Task 2 is outlined below.
+The validation data will be released on Monday (March 2nd) (**Update:** validation data released in *gym-push* version **0.0.21**). Models should not be altered once the validation data is released. You should validate your models using this data and update your submission with your models validation results by March 15th. An example of obtaining validation results for both Task 1 and Task 2 is outlined below. **To update your version of gym-push to get validation data:**
+```sh
+
+pip install gym-push==0.0.21
+
+```
 
 #### Task 1: Obtaining validation results
 Simply pass *validation=True* to the *request_data* method to ensure the environment is set to validation mode.
