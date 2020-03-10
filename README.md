@@ -251,18 +251,18 @@ Submit your model and your results folder via one of the following methods (the 
 > <br>**Task 1**: *ctr_pie.png, ctr_results.png, diversity_pie.png, enticement_pie.png, results.joblib*
 > <br>**Task 2**: *ctr_final_bar.png, ctr_final_donut.png, ctr_results.joblib, ctr_results.png, diversity_final_donut.png, diversity_results.joblib, diversity_results.png, enticement_final_donut.png, enticement_results.joblib, enticement_results.png*
 
-The validation data will be released on Monday (March 2nd) (**Update:** validation data released in *gym-push* version **0.0.21**). Models should not be altered once the validation data is released. You should validate your models using this data and update your submission with your models validation results by March 15th. An example of obtaining validation results for both Task 1 and Task 2 is outlined below. **To update your version of gym-push to get validation data:**
+The test data will be released on Monday (March 2nd) (**Update:** test data released in *gym-push* version **0.0.21**). Models should not be altered once the test data is released. You should test your models using this data and update your submission with your models test results by March 15th. An example of obtaining test results for both Task 1 and Task 2 is outlined below. **To update your version of gym-push to get test data:**
 ```sh
 
 pip install gym-push==0.0.21
 
 ```
 
-#### Task 1: Obtaining validation results
-Simply pass *validation=True* to the *request_data* method to ensure the environment is set to validation mode.
+#### Task 1: Obtaining test results
+Simply pass *validation=True* to the *request_data* method to ensure the environment is using the test data.
 ```sh
 
-# 1. Request the validation data
+# 1. Request the test data
 testing_contexts = env.request_data(validation=True)
 action_info = env.action_space.info
 
@@ -281,12 +281,12 @@ random_notifications = pd.DataFrame(random_notifications)
 env.evaluate(random_notifications)
 
 ```
-> On completion, the local address of your validation results is printed to the screen:
+> On completion, the local address of your test results is printed to the screen:
 > <br>Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task1/
 
 
-#### Task 2: Obtaining validation results
-Simply pass *validation=True* to the *reset* method to ensure the environment is set to validation mode.
+#### Task 2: Obtaining test results
+Simply pass *validation=True* to the *reset* method to ensure the environment is using the test data.
 
 ```sh
 
@@ -307,7 +307,7 @@ time_taken = end - start
 print('Time elapsed (h:mm:ss): ', time_taken) 
 
 ```
-> On completion, the local address of your validation results is printed to the screen:
+> On completion, the local address of your test results is printed to the screen:
 > <br>Results saved here:  c:\users\kieran\...\gym-push\gym_push\envs/results/validation/task2/
 
 
